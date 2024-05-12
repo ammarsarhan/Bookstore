@@ -29,12 +29,12 @@
             </tr>
             {% for book in books %}
             <tr class="border-b-[1px]">
-                <td>{{book["title"]}}</td>
-                <td>{{book["author"]}}</td>
-                <td>$ {{book["price"]}}</td>
-                <td>{{book["genre"]}}</td>
-                <td>{{book["pages"]}}</td>
-                <td>{{book["ISBN"]}}</td>
+                <td>{{book.title}}</td>
+                <td>{{book.author}}</td>
+                <td>$ {{book.price}}</td>
+                <td>{{book.genre}}</td>
+                <td>{{book.pages}}</td>
+                <td>{{book.ISBN}}</td>
             </tr>
             {% endfor %}
         </table>
