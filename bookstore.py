@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+import json
 import requests
 
 class Item(ABC):
@@ -88,7 +89,7 @@ class Bookstore:
         self.books = []
         self.magazines = []
 
-    def fetch(self):
+    def fetchAll(self):
         self.books = []
         self.magazines = []
 
@@ -106,3 +107,20 @@ class Bookstore:
             magazine = Magazine(item["title"], item["author"], item["price"], item["issue"], item["publication"], item["editor"])
             self.magazines.append(magazine)
 
+    def fetchItem(self, type, id):
+        url = "http://127.0.0.1:5000/data/books" if (type == "book") else "http://127.0.0.1:5000/data/magazines"
+     
+        res = requests.get(url)
+        data = res.json()
+
+        return data[int(id) - 1]
+    
+    def updateItem(self, type, id, data):
+        url = "http://127.0.0.1:5000/data/books" if (type == "book") else "http://127.0.0.1:5000/data/magazines"
+     
+        res = requests.get(url)
+        raw = res.json()
+
+        # Figure out a way to set this not locally
+        raw[int(id) - 1] = data
+        json.dump(raw, open("data/books.json", "w"))
