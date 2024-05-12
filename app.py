@@ -16,11 +16,19 @@ def index():
 @app.route("/dashboard")
 def dashboard():
     orders = bookstore.orders
-
-    bookstore.calculateBill()
     bill = bookstore.bill
-    
+
     return render_template("dashboard.html", orders = enumerate(orders), bill = bill)
+
+@app.route("/remove/<id>")
+def removeOrder(id):
+    item = bookstore.orders[int(id) - 1].getData()
+    price = item["price"]
+    bookstore.bill = bookstore.bill - price
+
+    bookstore.orders.pop(int(id) - 1)
+
+    return redirect("/dashboard")
 
 # Bookstore Update Routes
 @app.route('/update/book/<id>', methods=['GET', 'POST'])
@@ -54,6 +62,8 @@ def orderBook(id):
         book = Book(data["title"], data["author"], data["price"], data["ISBN"], data["genre"], data["pages"])
 
         bookstore.orders.append(book)
+        bookstore.bill = bookstore.bill + float(data["price"])
+        
         return redirect("/")
 
 @app.route('/order/magazine/<id>', methods=['GET', 'POST'])
@@ -66,6 +76,8 @@ def orderMagazine(id):
         magazine = Magazine(data["title"], data["author"], data["price"], data["issue"], data["publication"], data["editor"])
 
         bookstore.orders.append(magazine)
+        bookstore.bill = bookstore.bill + float(data["price"])
+        
         return redirect("/")
 
 # JSON Data Requests

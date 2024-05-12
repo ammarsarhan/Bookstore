@@ -14,7 +14,7 @@
     <main class="p-6 box-border">
         <span class="block">Orders</span>
             {% for index, order in orders %}
-            <div class="my-4 py-3 border-b-[1px]">
+            <div class="my-4 py-3 border-b-[1px] text-sm">
                 <span>{{index + 1}} - </span>
                 {% for detail in order.getData() %}
                     {% if 'ISBN' in detail %}
@@ -29,6 +29,7 @@
                         {% endif %}
                     {% endif %}
                 {% endfor %}
+                <a href="/remove/{{index + 1}}" class="float-right text-red-900 hover:text-red-600">Remove Item</a>
             </div>
             {% endfor %}
          <span class="block my-20">Total Price: ${{bill}}</span>

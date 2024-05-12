@@ -128,7 +128,3 @@ class Bookstore:
 
         raw[int(id) - 1] = data
         json.dump(raw, file)
-
-    def calculateBill(self):
-        for order in self.orders:
-            self.bill = order.getData()["price"] + self.bill
