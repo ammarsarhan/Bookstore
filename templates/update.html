@@ -9,6 +9,7 @@
 </head>
 <body>
     <main class="p-6 box-border h-screen flex flex-col justify-center">
+        {% if 'Book' in type %}
         <span class="my-2">Update {{type}} {{id}}</span>
         <div class="text-sm my-2">
             <span class="italic">New details: </span>
@@ -24,6 +25,24 @@
                 </form>
             </div>
         </div>
+        {% endif %}
+        {% if 'Magazine' in type %}
+        <span class="my-2">Update {{type}} {{id}}</span>
+        <div class="text-sm my-2">
+            <span class="italic">New details: </span>
+            <div class="w-2/5">
+                <form action="/update/magazine/{{id}}" method="POST" class="flex flex-col">
+                    <span class="mr-3">Title: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Edit the title..." name="title" value="{{item["title"]}}">
+                    <span class="mr-3">Author: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Edit the author..." name="author" value="{{item["author"]}}">
+                    <span class="mr-3">Price: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Edit the price..." name="price" value="{{item["price"]}}">
+                    <span class="mr-3">Issue: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Edit the issue number..." name="issue" value="{{item["issue"]}}">
+                    <span class="mr-3">Publication: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Edit the publication..." name="publication" value="{{item["publication"]}}">
+                    <span class="mr-3">Editor: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Edit the editor..." name="editor" value="{{item["editor"]}}">
+                    <button class="w-2/5 my-5 p-2 border-[1px] bg-sky-900 rounded-lg text-gray-100">Update</button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
     </main>
 </body>
 </html>

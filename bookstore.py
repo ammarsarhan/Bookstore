@@ -116,11 +116,13 @@ class Bookstore:
         return data[int(id) - 1]
     
     def updateItem(self, type, id, data):
-        url = "http://127.0.0.1:5000/data/books" if (type == "book") else "http://127.0.0.1:5000/data/magazines"
-     
+        url = "http://127.0.0.1:5000/data/books" if (type == "book") else "http://127.0.0.1:5000/data/magazines" 
+        
         res = requests.get(url)
         raw = res.json()
 
-        # Figure out a way to set this not locally
+        # Figure out a way to do this (not locally)
+        file = open("data/books.json", "w") if (type == "book") else open("data/magazines.json", "w")
+
         raw[int(id) - 1] = data
-        json.dump(raw, open("data/books.json", "w"))
+        json.dump(raw, file)

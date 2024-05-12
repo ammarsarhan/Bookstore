@@ -1,8 +1,7 @@
 from flask import Flask, render_template, request, redirect
-import requests
 import json
 
-from bookstore import Bookstore, Book
+from bookstore import Bookstore
 
 app = Flask(__name__)
 bookstore = Bookstore()
@@ -22,10 +21,15 @@ def updateBook(id):
         bookstore.updateItem("book", id, data)
         return redirect("/")
 
-@app.route('/update/magazine/<id>')
+@app.route('/update/magazine/<id>', methods=['GET', 'POST'])
 def updateMagazine(id):
-    magazine = bookstore.fetchItem("magazine", id)
-    return render_template("update.html", type = "Magazine", id = id, item = magazine)
+    if request.method == 'GET':
+        magazine = bookstore.fetchItem("magazine", id)
+        return render_template("update.html", type = "Magazine", id = id, item = magazine)
+    elif request.method == 'POST':
+        data = request.form
+        bookstore.updateItem("magazine", id, data)
+        return redirect("/")
 
 @app.route('/data/books')
 def books():
