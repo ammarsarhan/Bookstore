@@ -10,6 +10,10 @@ def index():
     books = res.json()
     return render_template("index.html", books = books)
 
+@app.route('/dashboard')
+def dashboard():
+    return "dashboard"
+
 @app.route('/data/books')
 def books():
     f = open("books.json")

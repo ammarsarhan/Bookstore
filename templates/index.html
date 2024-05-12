@@ -8,35 +8,38 @@
     <title>Bookstore</title>
 </head>
 <body>
-    <nav class="px-6 py-4 flex justify-between border-b-[1px]">
+    <nav class="px-6 py-2 flex justify-between border-b-[1px]">
         <a href="/" class="px-4 font-medium hover:text-blue-900">Bookstore</a>
         <div>
+            <a href="/dashboard" class="px-4 text-sm hover:text-blue-900">Dashboard</a>
             <a href="/auth/create" class="px-4 text-sm hover:text-blue-900">Sign Up</a>
             <a href="/auth/login" class="px-4 text-sm hover:text-blue-900">Log In</a>
         </div>
     </nav>
     <main class="m-8 box-border">
         <span>Books</span>
-        <table class="w-full text-left my-4">
-            <!-- <tr>
-                <th>Company</th>
-                <th>Contact</th>
-                <th>Country</th>
+        <table class="w-full text-left my-4 sortable">
+            <tr class="border-b-[1px]">
+                <th>Title</th>
+                <th>Author</th>
+                <th>Price</th>
+                <th>Genre</th>
+                <th>Pages</th>
+                <th>ISBN</th>
             </tr>
-            <tr>
-                <td>Alfreds Futterkiste</td>
-                <td>Maria Anders</td>
-                <td>Germany</td>
+            {% for book in books %}
+            <tr class="border-b-[1px]">
+                <td>{{book["title"]}}</td>
+                <td>{{book["author"]}}</td>
+                <td>$ {{book["price"]}}</td>
+                <td>{{book["genre"]}}</td>
+                <td>{{book["pages"]}}</td>
+                <td>{{book["ISBN"]}}</td>
             </tr>
-            <tr>
-                <td>Centro comercial Moctezuma</td>
-                <td>Francisco Chang</td>
-                <td>Mexico</td>
-            </tr> -->
+            {% endfor %}
         </table>
-        <!-- {% for book in books %}
-        <div>{{book["title"]}}</div>
-        {% endfor %} -->
+        
+        <div></div>
     </main>
 </body>
 </html>
