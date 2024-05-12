@@ -12,11 +12,16 @@ def index():
     bookstore.fetchAll()
     return render_template("index.html", books = bookstore.books, magazines = bookstore.magazines)
 
+# Search
+@app.route("/search", methods=['GET', 'POST'])
+def search():
+    return render_template("search.html")
+
 # Dashboard
 @app.route("/dashboard")
 def dashboard():
     orders = bookstore.orders
-    bill = bookstore.bill
+    bill = round(bookstore.bill, 2)
 
     return render_template("dashboard.html", orders = enumerate(orders), bill = bill)
 

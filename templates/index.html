@@ -8,12 +8,27 @@
     <title>Bookstore</title>
 
     <script>
+        let bookTimeout;
+        let magazineTimeout;
+
         const handleBookRowClicked = (row) => {
             window.location.href = "http://127.0.0.1:5000/order/book/" + row.rowIndex
         }
 
         const handleMagazineRowClicked = (row) => {
             window.location.href = "http://127.0.0.1:5000/order/magazine/" + row.rowIndex
+        }
+
+        const handleBookRowOver = (row) => {
+            bookTimeout = setTimeout(() => {
+                window.location.href = "http://127.0.0.1:5000/update/book/" + row.rowIndex
+            }, 2000)
+        }
+
+        const handleMagazineRowOver = (row) => {
+            magazineTimeout = setTimeout(() => {
+                window.location.href = "http://127.0.0.1:5000/update/magazine/" + row.rowIndex
+            }, 2000)
         }
     </script>
 </head>
@@ -27,7 +42,11 @@
         </div>
     </nav>
     <main class="m-8 box-border">
-        <div class="my-10">
+        <div class="text-sm text-gray-700">
+            <p>Click To Order</p>
+            <p>Hover 3s To Edit Data</p>
+        </div>
+        <div class="my-8">
             <span>Books</span>
             <table class="w-full text-left my-4 sortable">
                 <tr class="border-b-[1px]">
@@ -39,7 +58,7 @@
                     <th class="px-3">ISBN</th>
                 </tr>
                 {% for book in books %}
-                <tr class="hover:bg-blue-50 cursor-pointer border-b-[1px]" onclick="handleBookRowClicked(this)">
+                <tr class="hover:bg-blue-50 cursor-pointer border-b-[1px]" onclick="handleBookRowClicked(this)" onmouseover="handleBookRowOver(this)" onmouseout="clearTimeout(bookTimeout)">
                     <td class="px-3 w-[35vw]">{{book.title}}</td>
                     <td>{{book.author}}</td>
                     <td>$ {{book.price}}</td>
@@ -62,7 +81,7 @@
                     <th class="px-3">Issue</th>
                 </tr>
                 {% for magazine in magazines %}
-                <tr class="border-b-[1px] hover:bg-blue-50 cursor-pointer" onclick="handleMagazineRowClicked(this)">
+                <tr class="border-b-[1px] hover:bg-blue-50 cursor-pointer" onclick="handleMagazineRowClicked(this)" onmouseover="handleMagazineRowOver(this)" onmouseout="clearTimeout(magazineTimeout)">
                     <td class="px-3 w-[35vw]">{{magazine.title}}</td>
                     <td class="pr-10">{{magazine.author}}</td>
                     <td>$ {{magazine.price}}</td>
