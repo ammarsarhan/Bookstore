@@ -15,13 +15,14 @@ def index():
 # Search
 @app.route("/search", methods=['GET', 'POST'])
 def search():
+    bookstore.searchItems()
     return render_template("search.html")
 
 # Dashboard
 @app.route("/dashboard")
 def dashboard():
     orders = bookstore.orders
-    bill = round(bookstore.bill, 2)
+    bill = round(bookstore.bill, 2) + 0
 
     return render_template("dashboard.html", orders = enumerate(orders), bill = bill)
 
@@ -29,7 +30,7 @@ def dashboard():
 def removeOrder(id):
     item = bookstore.orders[int(id) - 1].getData()
     price = float(item["price"])
-    bookstore.bill = bookstore.bill - price
+    bookstore.bill = bookstore.bill - price + 0
 
     bookstore.orders.pop(int(id) - 1)
 
@@ -67,7 +68,7 @@ def orderBook(id):
         book = Book(data["title"], data["author"], data["price"], data["ISBN"], data["genre"], data["pages"])
 
         bookstore.orders.append(book)
-        bookstore.bill = bookstore.bill + float(data["price"])
+        bookstore.bill = bookstore.bill + float(data["price"]) + 0
         
         return redirect("/")
 
@@ -81,7 +82,7 @@ def orderMagazine(id):
         magazine = Magazine(data["title"], data["author"], data["price"], data["issue"], data["publication"], data["editor"])
 
         bookstore.orders.append(magazine)
-        bookstore.bill = bookstore.bill + float(data["price"])
+        bookstore.bill = bookstore.bill + float(data["price"]) + 0
         
         return redirect("/")
 

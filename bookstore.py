@@ -128,3 +128,13 @@ class Bookstore:
 
         raw[int(id) - 1] = data
         json.dump(raw, file)
+
+    def searchItems(self, title="", author="", price=0):
+        def filterCriteria(index):
+            if (self.books[0].getData()["title"] == "Ammar"):
+                return True
+            else: 
+                print(index)
+                return False
+
+        filtered = filter(filterCriteria, self.books)
