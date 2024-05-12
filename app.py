@@ -6,13 +6,23 @@ from bookstore import Bookstore, Book, Magazine
 app = Flask(__name__)
 bookstore = Bookstore()
 
+# Home
 @app.route('/')
 def index():
     bookstore.fetchAll()
     return render_template("index.html", books = bookstore.books, magazines = bookstore.magazines)
 
-# Bookstore Update Routes
+# Dashboard
+@app.route("/dashboard")
+def dashboard():
+    orders = bookstore.orders
 
+    bookstore.calculateBill()
+    bill = bookstore.bill
+    
+    return render_template("dashboard.html", orders = enumerate(orders), bill = bill)
+
+# Bookstore Update Routes
 @app.route('/update/book/<id>', methods=['GET', 'POST'])
 def updateBook(id):
     if request.method == 'GET':
@@ -34,7 +44,6 @@ def updateMagazine(id):
         return redirect("/")
 
 # Bookstore Order Routes
-
 @app.route('/order/book/<id>', methods=['GET', 'POST'])
 def orderBook(id):
     if request.method == 'GET':
@@ -59,6 +68,7 @@ def orderMagazine(id):
         bookstore.orders.append(magazine)
         return redirect("/")
 
+# JSON Data Requests
 @app.route('/data/books')
 def books():
     f = open("data/books.json")

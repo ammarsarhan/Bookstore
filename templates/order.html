@@ -31,9 +31,9 @@
         <span>Title: {{item["title"]}}</span>
         <span>Author: {{item["author"]}}</span>
         <span>Price: $ {{item["price"]}}</span>
-        <span>Genre: {{item["genre"]}}</span>
-        <span>ISBN: {{item["ISBN"]}}</span>
-        <span>Number of Pages: {{item["pages"]}}</span>
+        <span>Publication: {{item["publication"]}}</span>
+        <span>Issue Number: {{item["issue"]}}</span>
+        <span>Editor: {{item["editor"]}}</span>
         <form action="/order/magazine/{{id}}" method="POST">
             <button class="w-2/5 my-10 p-2 rounded-lg border-[1px] text-sm hover:bg-blue-50">Add To Cart</button>
         </form>

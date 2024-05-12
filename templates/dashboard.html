@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <nav class="w-full p-6 box-border">
+        <a href="/" class="hover:text-blue-900">Back</a>
+    </nav>
+    <main class="p-6 box-border">
+        <span class="block">Orders</span>
+            {% for index, order in orders %}
+            <div class="my-4 py-3 border-b-[1px]">
+                <span>{{index + 1}} - </span>
+                {% for detail in order.getData() %}
+                    {% if 'ISBN' in detail %}
+                        <span class="mx-3"><span class="text-gray-500">ISBN: </span>{{order[detail]}}</span>
+                    {% endif %}
+                    {% if 'price' in detail %}
+                        <span class="mx-3"><span class="text-gray-500">{{detail.capitalize()}}: </span>${{order[detail]}}</span>
+                    {% endif %}
+                    {% if 'ISBN' not in detail %}
+                        {% if 'price' not in detail %}
+                            <span class="mx-3"><span class="text-gray-500">{{detail.capitalize()}}: </span>{{order[detail]}}</span>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endfor %}
+         <span class="block my-20">Total Price: ${{bill}}</span>
+    </main>
+</body>
+</html>
