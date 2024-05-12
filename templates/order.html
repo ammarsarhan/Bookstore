@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order {{type}}</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <nav class="w-full p-6 box-border">
+        <a href="/" class="hover:text-blue-900">Back</a>
+    </nav>
+    <main class="p-6 box-border flex flex-col justify-center h-[calc(100vh-72px)]">
+    {% if 'Book' in type %}
+        <span class="my-2 text-lg">Order {{type}} {{id}}</span>
+        <span class="italic">Details:</span>
+        <span>Title: {{item["title"]}}</span>
+        <span>Author: {{item["author"]}}</span>
+        <span>Price: $ {{item["price"]}}</span>
+        <span>Genre: {{item["genre"]}}</span>
+        <span>ISBN: {{item["ISBN"]}}</span>
+        <span>Number of Pages: {{item["pages"]}}</span>
+        <form action="/order/book/{{id}}" method="POST">
+            <button class="w-2/5 my-10 p-2 rounded-lg border-[1px] text-sm hover:bg-blue-50">Add To Cart</button>
+        </form>
+    {% endif %}
+    {% if 'Magazine' in type %}
+        <span class="my-2 text-lg">Order {{type}} {{id}}</span>
+        <span class="italic">Details:</span>
+        <span>Title: {{item["title"]}}</span>
+        <span>Author: {{item["author"]}}</span>
+        <span>Price: $ {{item["price"]}}</span>
+        <span>Genre: {{item["genre"]}}</span>
+        <span>ISBN: {{item["ISBN"]}}</span>
+        <span>Number of Pages: {{item["pages"]}}</span>
+        <form action="/order/magazine/{{id}}" method="POST">
+            <button class="w-2/5 my-10 p-2 rounded-lg border-[1px] text-sm hover:bg-blue-50">Add To Cart</button>
+        </form>
+    {% endif %}
+    </main>
+</body>
+</html>

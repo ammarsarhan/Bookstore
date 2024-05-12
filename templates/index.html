@@ -9,22 +9,22 @@
 
     <script>
         const handleBookRowClicked = (row) => {
-            window.location.href = "http://127.0.0.1:5000/update/book/" + row.rowIndex
+            window.location.href = "http://127.0.0.1:5000/order/book/" + row.rowIndex
         }
 
         const handleMagazineRowClicked = (row) => {
-            window.location.href = "http://127.0.0.1:5000/update/magazine/" + row.rowIndex
+            window.location.href = "http://127.0.0.1:5000/order/magazine/" + row.rowIndex
         }
     </script>
 </head>
 <body>
     <nav class="px-6 py-2 flex justify-between border-b-[1px]">
         <a href="/" class="px-4 font-medium hover:text-blue-900">Bookstore</a>
-        <div>
+        <!-- <div>
             <a href="/dashboard" class="px-4 text-sm hover:text-blue-900">Dashboard</a>
             <a href="/auth/create" class="px-4 text-sm hover:text-blue-900">Sign Up</a>
             <a href="/auth/login" class="px-4 text-sm hover:text-blue-900">Log In</a>
-        </div>
+        </div> -->
     </nav>
     <main class="m-8 box-border">
         <div class="my-10">
@@ -39,7 +39,7 @@
                     <th class="px-3">ISBN</th>
                 </tr>
                 {% for book in books %}
-                <tr class="border-b-[1px] hover:bg-blue-50 cursor-pointer" onclick="handleBookRowClicked(this)">
+                <tr class="hover:bg-blue-50 cursor-pointer border-b-[1px]" onclick="handleBookRowClicked(this)">
                     <td class="px-3 w-[35vw]">{{book.title}}</td>
                     <td>{{book.author}}</td>
                     <td>$ {{book.price}}</td>

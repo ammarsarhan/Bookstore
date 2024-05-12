@@ -88,6 +88,7 @@ class Bookstore:
     def __init__(self):
         self.books = []
         self.magazines = []
+        self.orders = []
 
     def fetchAll(self):
         self.books = []
