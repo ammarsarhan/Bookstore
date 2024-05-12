@@ -23,7 +23,7 @@ def dashboard():
 @app.route("/remove/<id>")
 def removeOrder(id):
     item = bookstore.orders[int(id) - 1].getData()
-    price = item["price"]
+    price = float(item["price"])
     bookstore.bill = bookstore.bill - price
 
     bookstore.orders.pop(int(id) - 1)
