@@ -17,29 +17,51 @@
         </div>
     </nav>
     <main class="m-8 box-border">
-        <span>Books</span>
-        <table class="w-full text-left my-4 sortable">
-            <tr class="border-b-[1px]">
-                <th>Title</th>
-                <th>Author</th>
-                <th>Price</th>
-                <th>Genre</th>
-                <th>Pages</th>
-                <th>ISBN</th>
-            </tr>
-            {% for book in books %}
-            <tr class="border-b-[1px]">
-                <td>{{book.title}}</td>
-                <td>{{book.author}}</td>
-                <td>$ {{book.price}}</td>
-                <td>{{book.genre}}</td>
-                <td>{{book.pages}}</td>
-                <td>{{book.ISBN}}</td>
-            </tr>
-            {% endfor %}
+        <div class="my-10">
+            <span>Books</span>
+            <table class="w-full text-left my-4 sortable">
+                <tr class="border-b-[1px]">
+                    <th class="px-3">Title</th>
+                    <th>Author</th>
+                    <th>Price</th>
+                    <th>Genre</th>
+                    <th>Pages</th>
+                    <th class="px-3">ISBN</th>
+                </tr>
+                {% for book in books %}
+                <tr class="border-b-[1px] hover:bg-blue-50 cursor-pointer">
+                    <td class="px-3 w-[35vw]">{{book.title}}</td>
+                    <td>{{book.author}}</td>
+                    <td>$ {{book.price}}</td>
+                    <td>{{book.genre}}</td>
+                    <td>{{book.pages}}</td>
+                    <td class="px-3">{{book.ISBN}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="my-10">
+            <span>Magazines</span>
+            <table class="w-full text-left my-4 sortable">
+                <tr class="border-b-[1px]">
+                    <th class="px-3">Title</th>
+                    <th>Author</th>
+                    <th>Price</th>
+                    <th class="px-5">Publication</th>
+                    <th>Editor</th>
+                    <th class="px-3">Issue</th>
+                </tr>
+                {% for magazine in magazines %}
+                <tr class="border-b-[1px] hover:bg-blue-50 cursor-pointer">
+                    <td class="px-3 w-[35vw]">{{magazine.title}}</td>
+                    <td class="pr-10">{{magazine.author}}</td>
+                    <td>${{magazine.price}}</td>
+                    <td class="px-5">{{magazine.publication}}</td>
+                    <td>{{magazine.editor}}</td>
+                    <td class="px-3">{{magazine.issue}}</td>
+                </tr>
+                {% endfor %}
+        </div>
         </table>
-        
-        <div></div>
-    </main>
 </body>
 </html>

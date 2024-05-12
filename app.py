@@ -2,22 +2,15 @@ from flask import Flask, render_template
 import requests
 import json
 
-from items import Book
+from bookstore import Bookstore, Book
 
 app = Flask(__name__)
+bookstore = Bookstore()
 
 @app.route('/')
 def index():
-    res = requests.get("http://127.0.0.1:5000/data/books")
-    data = res.json()
-
-    books = []
-
-    for item in data:
-        book = Book(item["title"], item["author"], item["price"], item["ISBN"], item["genre"], item["pages"])
-        books.append(book)
-
-    return render_template("index.html", books = books)
+    bookstore.fetch()
+    return render_template("index.html", books = bookstore.books, magazines = bookstore.magazines)
 
 @app.route('/dashboard')
 def dashboard():
@@ -25,6 +18,12 @@ def dashboard():
 
 @app.route('/data/books')
 def books():
-    f = open("books.json")
+    f = open("data/books.json")
+    data = json.load(f)
+    return data
+
+@app.route('/data/magazines')
+def magazines():
+    f = open("data/magazines.json")
     data = json.load(f)
     return data
