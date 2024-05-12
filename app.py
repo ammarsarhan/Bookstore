@@ -12,9 +12,13 @@ def index():
     bookstore.fetch()
     return render_template("index.html", books = bookstore.books, magazines = bookstore.magazines)
 
-@app.route('/dashboard')
-def dashboard():
-    return "dashboard"
+@app.route('/update/book/<id>')
+def updateBook(id):
+    return f"book {id}"
+
+@app.route('/update/magazine/<id>')
+def updateMagazine(id):
+    return f"magazine {id}"
 
 @app.route('/data/books')
 def books():

@@ -6,6 +6,16 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Bookstore</title>
+
+    <script>
+        const handleBookRowClicked = (row) => {
+            window.location.href = "http://127.0.0.1:5000/update/book/" + row.rowIndex
+        }
+
+        const handleMagazineRowClicked = (row) => {
+            window.location.href = "http://127.0.0.1:5000/update/magazine/" + row.rowIndex
+        }
+    </script>
 </head>
 <body>
     <nav class="px-6 py-2 flex justify-between border-b-[1px]">
@@ -29,7 +39,7 @@
                     <th class="px-3">ISBN</th>
                 </tr>
                 {% for book in books %}
-                <tr class="border-b-[1px] hover:bg-blue-50 cursor-pointer">
+                <tr class="border-b-[1px] hover:bg-blue-50 cursor-pointer" onclick="handleBookRowClicked(this)">
                     <td class="px-3 w-[35vw]">{{book.title}}</td>
                     <td>{{book.author}}</td>
                     <td>$ {{book.price}}</td>
@@ -52,7 +62,7 @@
                     <th class="px-3">Issue</th>
                 </tr>
                 {% for magazine in magazines %}
-                <tr class="border-b-[1px] hover:bg-blue-50 cursor-pointer">
+                <tr class="border-b-[1px] hover:bg-blue-50 cursor-pointer" onclick="handleMagazineRowClicked(this)">
                     <td class="px-3 w-[35vw]">{{magazine.title}}</td>
                     <td class="pr-10">{{magazine.author}}</td>
                     <td>${{magazine.price}}</td>
