@@ -15,8 +15,26 @@ def index():
 # Search
 @app.route("/search", methods=['GET', 'POST'])
 def search():
-    bookstore.searchItems()
-    return render_template("search.html")
+    if request.method == 'GET':
+        return render_template("search.html")
+    else:
+        args = {"title": request.form.get("title"), "author": request.form.get("author"), "price": request.form.get("price"), "operator": request.form.get("operator")}
+        data = bookstore.searchItems(args)
+        results = []
+
+        for item in data:
+            results.append(item.getData())
+        
+        f = open("data/results.json", "w")
+        json.dump(results, f)
+
+        return redirect('/search/display')
+    
+@app.route('/search/display')
+def display():
+    f = open("data/results.json", "r")
+    data = json.load(f)
+    return render_template("display.html", data = data)
 
 # Dashboard
 @app.route("/dashboard")
@@ -89,12 +107,12 @@ def orderMagazine(id):
 # JSON Data Requests
 @app.route('/data/books')
 def books():
-    f = open("data/books.json")
+    f = open("data/books.json", "r")
     data = json.load(f)
     return data
 
 @app.route('/data/magazines')
 def magazines():
-    f = open("data/magazines.json")
+    f = open("data/magazines.json", "r")
     data = json.load(f)
     return data

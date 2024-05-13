@@ -129,12 +129,50 @@ class Bookstore:
         raw[int(id) - 1] = data
         json.dump(raw, file)
 
-    def searchItems(self, title="", author="", price=0):
-        def filterCriteria(index):
-            if (self.books[0].getData()["title"] == "Ammar"):
-                return True
-            else: 
-                print(index)
-                return False
+    def searchItems(self, criteria):
+        self.fetchAll()
 
-        filtered = filter(filterCriteria, self.books)
+        items = self.books + self.magazines
+        results = []
+
+        for item in items:
+            for key in criteria:
+                match key:
+                    case "title":
+                        if criteria[key] == "":
+                            results.append(item)
+                        else:
+                            title = item.getData()[key].lower()
+                            comparator = criteria[key].lower()
+        
+                            results.append(item) if (comparator in title) else None
+
+                    case "author":
+                        if criteria[key] == "":
+                            None
+                        else:
+                            for index, result in enumerate(results):
+                                author = result.getData()[key].lower()
+                                comparator = criteria[key].lower()
+
+                                results.pop(index) if (comparator not in author) else None
+                    
+                    case "price":
+                        if criteria[key] == "":
+                            None
+                        else:
+                            for index, result in enumerate(results):
+                                price = float(result.getData()[key])
+                                comparator = float(criteria[key])
+
+                                operator = criteria["operator"]
+
+                                match operator:
+                                    case "not":
+                                        results.pop(index) if (comparator != price) else None
+                                    case "less":
+                                        results.pop(index) if (comparator <= price) else None
+                                    case "greater":
+                                        results.pop(index) if (comparator >= price) else None
+
+        return results

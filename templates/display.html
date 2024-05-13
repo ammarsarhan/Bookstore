@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Search Results</title>
+</head>
+<body>
+    <nav class="w-full p-6 box-border">
+        <a href="/" class="hover:text-blue-900">← Back</a>
+    </nav>
+    <main class="m-8 box-border">
+        <span>Search Results: </span>
+        <div class="my-8">
+            <span>Books</span>
+            <table class="w-full text-left my-4 sortable">
+                <tr class="border-b-[1px]">
+                    <th class="px-3">Title</th>
+                    <th>Author</th>
+                    <th>Price</th>
+                    <th>Genre</th>
+                    <th>Pages</th>
+                    <th class="px-3">ISBN</th>
+                </tr>
+                {% for item in data %}
+                {% if item.genre %}
+                <tr class="hover:bg-blue-50 cursor-pointer border-b-[1px]">
+                    <td class="px-3 w-[35vw]">{{item.title}}</td>
+                    <td>{{item.author}}</td>
+                    <td>$ {{item.price}}</td>
+                    <td>{{item.genre}}</td>
+                    <td>{{item.pages}}</td>
+                    <td class="px-3">{{item.ISBN}}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+        <div class="my-10">
+            <span>Magazines</span>
+            <table class="w-full text-left my-4 sortable">
+                <tr class="border-b-[1px]">
+                    <th class="px-3">Title</th>
+                    <th>Author</th>
+                    <th>Price</th>
+                    <th class="px-5">Publication</th>
+                    <th>Editor</th>
+                    <th class="px-3">Issue</th>
+                </tr>
+                {% for item in data %}
+                {% if item.publication %}
+                <tr class="border-b-[1px] hover:bg-blue-50 cursor-pointer">
+                    <td class="px-3 w-[35vw]">{{item.title}}</td>
+                    <td class="pr-10">{{item.author}}</td>
+                    <td>$ {{item.price}}</td>
+                    <td class="px-5">{{item.publication}}</td>
+                    <td>{{item.editor}}</td>
+                    <td class="px-3">{{item.issue}}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+        </div>
+        </table>
+</body>
+</html>
