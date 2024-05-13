@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import json
 
-from bookstore import Bookstore, Book, Magazine
+from bookstore import Bookstore, Book, Magazine, DVD
 
 app = Flask(__name__)
 bookstore = Bookstore()
@@ -10,7 +10,7 @@ bookstore = Bookstore()
 @app.route('/')
 def index():
     bookstore.fetchAll()
-    return render_template("index.html", books = bookstore.books, magazines = bookstore.magazines)
+    return render_template("index.html", books = bookstore.books, magazines = bookstore.magazines, dvds = bookstore.dvds)
 
 # Search
 @app.route("/search", methods=['GET', 'POST'])
@@ -74,6 +74,16 @@ def updateMagazine(id):
         data = request.form
         bookstore.updateItem("magazine", id, data)
         return redirect("/")
+    
+@app.route('/update/dvd/<id>', methods=['GET', 'POST'])
+def updateDVD(id):
+    if request.method == 'GET':
+        dvd = bookstore.fetchItem("dvd", id)
+        return render_template("update.html", type = "DVD", id = id, item = dvd)
+    elif request.method == 'POST':
+        data = request.form
+        bookstore.updateItem("dvd", id, data)
+        return redirect("/")
 
 # Bookstore Order Routes
 @app.route('/order/book/<id>', methods=['GET', 'POST'])
@@ -104,6 +114,20 @@ def orderMagazine(id):
         
         return redirect("/")
 
+@app.route('/order/dvd/<id>', methods=['GET', 'POST'])
+def orderDVD(id):
+    if request.method == 'GET':
+        dvd = bookstore.fetchItem("dvd", id)
+        return render_template("order.html", type = "DVD", id = id, item = dvd)
+    elif request.method == 'POST':
+        data = bookstore.fetchItem("dvd", id)
+        dvd = DVD(data["title"], data["author"], data["price"], data["director"], data["duration"], data["genre"])
+
+        bookstore.orders.append(dvd)
+        bookstore.bill = bookstore.bill + float(data["price"]) + 0
+        
+        return redirect("/")
+
 # JSON Data Requests
 @app.route('/data/books')
 def books():
@@ -114,5 +138,11 @@ def books():
 @app.route('/data/magazines')
 def magazines():
     f = open("data/magazines.json", "r")
+    data = json.load(f)
+    return data
+
+@app.route('/data/dvds')
+def dvds():
+    f = open("data/dvds.json", "r")
     data = json.load(f)
     return data

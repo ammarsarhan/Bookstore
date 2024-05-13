@@ -25,7 +25,7 @@
                     <th class="px-3">ISBN</th>
                 </tr>
                 {% for item in data %}
-                {% if item.genre %}
+                {% if item.ISBN %}
                 <tr class="hover:bg-blue-50 cursor-pointer border-b-[1px]">
                     <td class="px-3 w-[35vw]">{{item.title}}</td>
                     <td>{{item.author}}</td>
@@ -61,7 +61,34 @@
                 </tr>
                 {% endif %}
                 {% endfor %}
+            </table>
         </div>
-        </table>
+        <div class="my-10">
+            <span>DVDs</span>
+            <table class="w-full text-left my-4 sortable">
+                <tr class="border-b-[1px]">
+                    <th class="px-3">Title</th>
+                    <th>Author</th>
+                    <th>Price</th>
+                    <th class="px-5">Director</th>
+                    <th>Duration</th>
+                    <th class="px-3">Genre</th>
+                </tr>
+                {% for item in data %}
+                {% if item.director %}
+                <tr class="border-b-[1px] hover:bg-blue-50 cursor-pointer">
+                    <td class="px-3 w-[35vw]">{{item.title}}</td>
+                    <td class="pr-10">{{item.author}}</td>
+                    <td>$ {{item.price}}</td>
+                    <td class="px-5">{{item.director}}</td>
+                    <td>{{item.duration}} Minutes</td>
+                    <td class="px-3">{{item.genre}}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+
+    </main>
 </body>
 </html>

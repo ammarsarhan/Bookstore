@@ -23,9 +23,14 @@
                     {% if 'price' in detail %}
                         <span class="mx-3"><span class="text-gray-500">{{detail.capitalize()}}: </span>${{order[detail]}}</span>
                     {% endif %}
+                    {% if 'duration' in detail %}
+                        <span class="mx-3"><span class="text-gray-500">{{detail.capitalize()}}: </span>{{order[detail]}} Minutes</span>
+                    {% endif %}
                     {% if 'ISBN' not in detail %}
                         {% if 'price' not in detail %}
-                            <span class="mx-3"><span class="text-gray-500">{{detail.capitalize()}}: </span>{{order[detail]}}</span>
+                            {% if 'duration' not in detail %}
+                                <span class="mx-3"><span class="text-gray-500">{{detail.capitalize()}}: </span>{{order[detail]}}</span>    
+                            {% endif %}
                         {% endif %}
                     {% endif %}
                 {% endfor %}

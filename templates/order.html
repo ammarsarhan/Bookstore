@@ -38,6 +38,19 @@
             <button class="w-2/5 my-10 p-2 rounded-lg border-[1px] text-sm hover:bg-blue-50">Add To Cart</button>
         </form>
     {% endif %}
+    {% if 'DVD' in type %}
+        <span class="my-2 text-lg">Order {{type}} {{id}}</span>
+        <span class="italic">Details:</span>
+        <span>Title: {{item["title"]}}</span>
+        <span>Author: {{item["author"]}}</span>
+        <span>Price: $ {{item["price"]}}</span>
+        <span>Director: {{item["director"]}}</span>
+        <span>Duration: {{item["duration"]}} Minutes</span>
+        <span>Genre: {{item["genre"]}}</span>
+        <form action="/order/dvd/{{id}}" method="POST">
+            <button class="w-2/5 my-10 p-2 rounded-lg border-[1px] text-sm hover:bg-blue-50">Add To Cart</button>
+        </form>
+    {% endif %}
     </main>
 </body>
 </html>
