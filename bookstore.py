@@ -126,6 +126,81 @@ class Bookstore:
         self.orders = []
         self.bill = 0
 
+    # Start Of Essential Functions
+
+    def addOrder(self, item):
+        self.orders.append(item)
+        print(f"Added {item.getData()["title"]}.")
+
+    def removeOrder(self, index):
+        self.orders.pop(index)
+        print(f"Removed Order At Index: {index}.")
+
+    def displayOrders(self):
+        print("Orders:")
+        for order in self.orders:
+            print(order.getData())
+
+    def calculateSales(self):
+        for item in self.orders:
+            try:
+                price = float(item.getData()["price"])
+                self.bill = self.bill + price
+
+                print(f"Current price: {self.bill}")
+            except Exception as e:
+                print(e)
+
+    def searchItems(self, criteria):
+        self.fetchAll()
+
+        items = self.books + self.magazines + self.dvds
+        results = []
+
+        for item in items:
+            for key in criteria:
+                match key:
+                    case "title":
+                        if criteria[key] == "":
+                            results.append(item)
+                        else:
+                            title = item.getData()[key].lower()
+                            comparator = criteria[key].lower()
+        
+                            results.append(item) if (comparator in title) else None
+
+                    case "author":
+                        if criteria[key] == "":
+                            None
+                        else:
+                            for index, result in enumerate(results):
+                                author = result.getData()[key].lower()
+                                comparator = criteria[key].lower()
+
+                                results.pop(index) if (comparator not in author) else None
+                    
+                    case "price":
+                        if criteria[key] == "":
+                            None
+                        else:
+                            for index, result in enumerate(results):
+                                price = float(result.getData()[key])
+                                comparator = float(criteria[key])
+
+                                operator = criteria["operator"]
+
+                                match operator:
+                                    case "exact":
+                                        results.pop(index) if (comparator != price) else None
+                                    case "less":
+                                        results.pop(index) if (comparator <= price) else None
+                                    case "greater":
+                                        results.pop(index) if (comparator >= price) else None
+
+        return results
+    
+    # End Of Essential Functions
+
     def fetchAll(self):
         self.books = []
         self.magazines = []
@@ -187,50 +262,55 @@ class Bookstore:
         raw[int(id) - 1] = data
         json.dump(raw, file)
 
-    def searchItems(self, criteria):
-        self.fetchAll()
-
-        items = self.books + self.magazines + self.dvds
-        results = []
-
-        for item in items:
-            for key in criteria:
-                match key:
-                    case "title":
-                        if criteria[key] == "":
-                            results.append(item)
-                        else:
-                            title = item.getData()[key].lower()
-                            comparator = criteria[key].lower()
+    def addItem(self, type, id, data):
+        if (type == "book"):
+            url = "http://127.0.0.1:5000/data/books" 
+        elif (type == "magazine"):
+            url = "http://127.0.0.1:5000/data/magazines"
+        else:
+            url = "http://127.0.0.1:5000/data/dvds"
         
-                            results.append(item) if (comparator in title) else None
+        res = requests.get(url)
+        raw = res.json()
 
-                    case "author":
-                        if criteria[key] == "":
-                            None
-                        else:
-                            for index, result in enumerate(results):
-                                author = result.getData()[key].lower()
-                                comparator = criteria[key].lower()
+        # Figure out a way to do this (not locally)
+        if (type == "book"):
+            file = open("data/books.json", "w")
+        elif (type == "magazine"):
+            file = open("data/magazines.json", "w")
+        else:
+            file = open("data/dvds.json", "w")
 
-                                results.pop(index) if (comparator not in author) else None
-                    
-                    case "price":
-                        if criteria[key] == "":
-                            None
-                        else:
-                            for index, result in enumerate(results):
-                                price = float(result.getData()[key])
-                                comparator = float(criteria[key])
+        raw.append(data)
+        self.books.append(data)
+        json.dump(raw, file)
 
-                                operator = criteria["operator"]
+# if __name__ == "__main__":
+#     book1 = Book("ahrbfe", "ufeh", 384, "fuehwue", "uufeh", 200)
+#     magazine1 = Magazine("eufhfur", "uefheu", 44, 3343, "ufheufe", "ufehuf")
+#     dvd1 = DVD("uahfeu", "ufhee", 12, "ufaji", 938, "ufheur")
 
-                                match operator:
-                                    case "exact":
-                                        results.pop(index) if (comparator != price) else None
-                                    case "less":
-                                        results.pop(index) if (comparator <= price) else None
-                                    case "greater":
-                                        results.pop(index) if (comparator >= price) else None
+#     book1.setData("title", "ammar")
 
-        return results
+#     b = Bookstore()
+    
+#     b.items.append(book1)
+#     b.items.append(magazine1)
+#     b.items.append(dvd1)
+
+#     b.addOrder(book1)
+#     b.addOrder(magazine1)
+#     b.addOrder(dvd1)
+
+#     b.displayOrders()
+
+#     b.removeOrder(2)
+#     b.removeOrder(1)
+
+#     b.displayOrders()
+#     b.calculateSales()
+
+#     search = b.searchItems({"title": "am"})
+
+#     for item in search:
+#         print(item.getData())

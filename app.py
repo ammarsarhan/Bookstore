@@ -10,7 +10,35 @@ bookstore = Bookstore()
 @app.route('/')
 def index():
     bookstore.fetchAll()
-    return render_template("index.html", books = bookstore.books, magazines = bookstore.magazines, dvds = bookstore.dvds)
+    return render_template("index.html", books = bookstore.books, magazines = bookstore.magazines, dvds = bookstore.dvds,
+                           bookIndex = len(bookstore.books) + 1, magazineIndex = len(bookstore.magazines) + 1, dvdIndex = len(bookstore.dvds) + 1)
+
+@app.route('/add/book/<id>', methods=['GET', 'POST'])
+def addBook(id):
+    if request.method == 'GET':
+        return render_template("add.html", type = "Book", id = id)
+    else:
+        data = request.form
+        bookstore.addItem("book", id, data)
+        return redirect("/")
+
+@app.route('/add/magazine/<id>', methods=['GET', 'POST'])
+def addMagazine(id):
+    if request.method == 'GET':
+        return render_template("add.html", type = "Magazine", id = id)
+    else:
+        data = request.form
+        bookstore.addItem("magazine", id, data)
+        return redirect("/")
+
+@app.route('/add/dvd/<id>', methods=['GET', 'POST'])
+def addDVD(id):
+    if request.method == 'GET':
+        return render_template("add.html", type = "DVD", id = id)
+    else:
+        data = request.form
+        bookstore.addItem("dvd", id, data)
+        return redirect("/")
 
 # Search
 @app.route("/search", methods=['GET', 'POST'])

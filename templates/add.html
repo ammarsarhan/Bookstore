@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Item</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <nav class="w-full p-6 box-border">
+        <a href="/" class="hover:text-blue-900">← Back</a>
+    </nav>
+    <main class="p-6 box-border flex flex-col justify-center h-[calc(100vh-72px)]">
+        {% if 'Book' in type %}
+        <span class="my-2">Add {{type}} {{id}}</span>
+        <div class="my-2">
+            <span class="italic">New details: </span>
+            <div class="w-2/5">
+                <form action="/add/book/{{id}}" method="POST" class="flex flex-col">
+                    <span class="mr-3">Title: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Add the title..." name="title">
+                    <span class="mr-3">Author: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Add the author..." name="author">
+                    <span class="mr-3">Price: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Add the price..." name="price">
+                    <span class="mr-3">Genre: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Add the genre..." name="genre">
+                    <span class="mr-3">ISBN: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Add the ISBN..." name="ISBN">
+                    <span class="mr-3">Pages: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Add the number of pages..." name="pages">
+                    <button class="w-2/5 my-5 p-2 border-[1px] bg-sky-900 rounded-lg text-gray-100">Add</button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+        {% if 'Magazine' in type %}
+        <span class="my-2">Update {{type}} {{id}}</span>
+        <div class="my-2">
+            <span class="italic">New details: </span>
+            <div class="w-2/5">
+                <form action="/add/magazine/{{id}}" method="POST" class="flex flex-col">
+                    <span class="mr-3">Title: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Edit the title..." name="title">
+                    <span class="mr-3">Author: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Edit the author..." name="author">
+                    <span class="mr-3">Price: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Edit the price..." name="price">
+                    <span class="mr-3">Issue: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Edit the issue number..." name="issue">
+                    <span class="mr-3">Publication: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Edit the publication..." name="publication">
+                    <span class="mr-3">Editor: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Edit the editor..." name="editor">
+                    <button class="w-2/5 my-5 p-2 border-[1px] bg-sky-900 rounded-lg text-gray-100">Add</button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+        {% if 'DVD' in type %}
+        <span class="my-2">Update {{type}} {{id}}</span>
+        <div class="my-2">
+            <span class="italic">New details: </span>
+            <div class="w-2/5">
+                <form action="/add/dvd/{{id}}" method="POST" class="flex flex-col">
+                    <span class="mr-3">Title: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Edit the title..." name="title">
+                    <span class="mr-3">Author: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Edit the author..." name="author">
+                    <span class="mr-3">Price: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Edit the price..." name="price">
+                    <span class="mr-3">Duration: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Edit the duration..." name="duration">
+                    <span class="mr-3">Director: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Edit the director..." name="director">
+                    <span class="mr-3">Genre: </span><input type="text" class="my-2 px-2 py-1 border-[1px] rounded-lg" placeholder="Edit the genre..." name="genre">
+                    <button class="w-2/5 my-5 p-2 border-[1px] bg-sky-900 rounded-lg text-gray-100">Add</button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+    </main>
+</body>
+</html>
